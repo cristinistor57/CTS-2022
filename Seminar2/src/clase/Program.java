@@ -7,11 +7,15 @@ public class Program {
 
     public static void main(String[] args) {
         List<Aplicant> listaAngajati;
-        AngajatiReader angajatiReader = new AngajatiReader();
+        ApplicantsReader angajatiReader = new AngajatiReader();
         try {
             listaAngajati = angajatiReader.citireAplicanti("angajati.txt");
-            for(Aplicant angajat:listaAngajati)
-                System.out.println(angajat.toString());
+            for(Aplicant angajat:listaAngajati){
+                angajat.afisareReturnareSalariuZilnic(1000);
+                angajat.afiseazaStatut();
+                System.out.println(angajat);
+            }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

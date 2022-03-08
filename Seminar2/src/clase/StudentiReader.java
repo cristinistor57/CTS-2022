@@ -10,20 +10,29 @@ public class StudentiReader implements ApplicantsReader{
 
     @Override
     public List<Aplicant> citireAplicanti(String numeFisier) throws FileNotFoundException, NumberFormatException {
-        Scanner input = new Scanner(new File(numeFisier));
-        input.useDelimiter(",|\n");
-        List<Aplicant> studenti = new ArrayList<Aplicant>();
+        Scanner scanner = new Scanner(new File(numeFisier));
+        scanner.useDelimiter(",");
+        List<Aplicant> studenti = citireAplicantiDinScanner(scanner);
 
-        while (input.hasNext()) {
+        scanner.close();
+        return studenti;
+    }
+
+    private List<Aplicant> citireAplicantiDinScanner(Scanner scanner) {
+        List<Aplicant> studenti = new ArrayList<>();
+
+        while (scanner.hasNext()) {
             Student student = new Student();
-            ApplicantReader.citireAplicant(input, student);
-            int an_studii = input.nextInt();
-            String facultate = (input.next()).toString();
-            student.setAn_studii(an_studii);
+
+            ApplicantReader.citireAplicant(scanner, student);
+            int an_studii = scanner.nextInt();
+            String facultate = (scanner.next());
+
+            student.setAnStudii(an_studii);
             student.setFacultate(facultate);
+
             studenti.add(student);
         }
-        input.close();
         return studenti;
     }
 }
